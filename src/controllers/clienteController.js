@@ -12,9 +12,7 @@ import clienteRepository from "../repositories/clienteRepository.js";
 // Objeto controller que lida com requisições HTTP
 const clienteController = {
 
-    // =========================
-    // CRIAR CLIENTE
-    // =========================
+    
     criar: async (req, res) => {
         try {
             // Pega os dados enviados no body
@@ -53,9 +51,7 @@ const clienteController = {
                 return res.status(400).json({ message: "CPF inválido" });
             }
 
-            // =========================
-            // TELEFONES
-            // =========================
+            
             let listaTelefones = [];
 
             // Verifica se veio um array de telefones
@@ -69,9 +65,7 @@ const clienteController = {
                 }
             }
 
-            // =========================
-            // ENDEREÇO
-            // =========================
+           
             const endereco = new Endereco(
                 cep,
                 viaCep.logradouro,
@@ -102,9 +96,7 @@ const clienteController = {
     },
 
 
-    // =========================
-    // SELECIONAR CLIENTES
-    // =========================
+    
     selecionar: async (req, res) => {
         try {
             // Pega o ID da URL (se existir)
@@ -135,9 +127,7 @@ const clienteController = {
     },
 
 
-    // =========================
-    // EDITAR CLIENTE
-    // =========================
+    
     editar: async (req, res) => {
         try {
             // ID vindo da URL
@@ -174,9 +164,6 @@ const clienteController = {
                 return res.status(400).json({ message: "CPF inválido" });
             }
 
-            // =========================
-            // TELEFONES
-            // =========================
             let listaTelefones = [];
 
             if (Array.isArray(telefones)) {
@@ -193,9 +180,6 @@ const clienteController = {
                 });
             }
 
-            // =========================
-            // ENDEREÇO
-            // =========================
             const endereco = new Endereco(
                 cep,
                 viaCep.logradouro,
@@ -226,9 +210,7 @@ const clienteController = {
     },
 
 
-    // =========================
-    // DELETAR CLIENTE
-    // =========================
+
     deletar: async (req, res) => {
         try {
             // ID vindo da URL

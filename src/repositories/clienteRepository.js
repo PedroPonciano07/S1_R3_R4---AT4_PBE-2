@@ -145,9 +145,7 @@ const clienteRepository = {
                 );
             }
 
-            // =========================
-            // ATUALIZAR ENDEREÇO
-            // =========================
+            
             await conn.execute(
                 `UPDATE enderecos SET 
                 cep=?, logradouro=?, numero=?, complemento=?, bairro=?, cidade=?, uf=?
@@ -181,9 +179,7 @@ const clienteRepository = {
     },
 
 
-    // =========================
-    // DELETAR CLIENTE
-    // =========================
+    
     deletar: async (id) => {
 
         const conn = await connection.getConnection();
