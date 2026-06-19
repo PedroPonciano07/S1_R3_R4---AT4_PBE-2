@@ -4,30 +4,32 @@ import produtoRepository from "../repositories/produtoRepository.js";
 const produtoController = {
 
     criar: async (req, res) => {
-        try {
-            console.log('arq: ', req.file)
-            if (!req.file) {
-                return res.status(400).json({ message: 'Imagem não enviada' });
-            }
+    try {
 
-            const { nome, valor, idCategoria } = req.body;
-            const caminhoImagem = req.file.filename;
+        const { nome, valor, idCategoria } = req.body;
 
-            // cria objetos com validações da classe
-            const produto = Produto.criar({nome, valor, idCategoria, caminhoImagem});
+       
+        const caminhoImagem = req.file ? req.file.filename : null;
 
-            const result = await produtoRepository.criar(produto);
-            res.status(201).json({ result });
+        const produto = Produto.criar({
+            nome,
+            valor,
+            idCategoria,
+            caminhoImagem
+        });
 
-        } catch (error) {
-            console.error(error);
-            res.status(500).json({
-                message: 'Ocorreu um erro no servidor',
-                errorMessage: error.message
-            });
-        }
-    },
+        const result = await produtoRepository.criar(produto);
 
+        res.status(201).json({ result });
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            message: 'Ocorreu um erro no servidor',
+            errorMessage: error.message
+        });
+    }
+},
     editar: async (req, res) => {
         try {
             const id = req.params.id;

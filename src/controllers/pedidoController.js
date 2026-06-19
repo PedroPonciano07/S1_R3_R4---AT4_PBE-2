@@ -7,7 +7,10 @@ const pedidoController = {
 
     criar: async (req, res) => {
         try {
-            let { clienteId, itens } = req.body;
+            console.log(req.body);
+            console.log("idCliente:", req.body.idCliente);
+
+            const { idCliente, itens } = req.body;
 
             const itensPedido = itens.map(item =>
                 ItensPedido.criar({
@@ -20,18 +23,24 @@ const pedidoController = {
             const subTotal = ItensPedido.calcularSubTotalItens(itensPedido);
 
             const pedido = Pedido.criar({
-                clienteId,
+                clienteId: idCliente,
                 subTotal,
                 status: statusPed.ABERTO
             });
 
-            const result = await pedidoRepository.criar(pedido, itensPedido);
+            const result = await pedidoRepository.criar(
+                pedido,
+                itensPedido
+            );
 
             res.status(201).json(result);
 
         } catch (error) {
             console.error(error);
-            res.status(500).json({ message: error.message });
+
+            res.status(500).json({
+                message: error.message
+            });
         }
     },
 
