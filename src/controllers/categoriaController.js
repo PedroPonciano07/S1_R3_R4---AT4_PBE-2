@@ -38,31 +38,28 @@ const categoriaController = {
         }
     },
 
-   deletar: async (req, res) => {
-    try {
-        const id = req.params.id;
+    deletar: async (req, res) => {
+        try {
+            const id = req.params.id;
 
-        console.log("ID RECEBIDO:", id);
+            const result = await categoriaRepository.deletar(id);
 
-        const result = await categoriaRepository.deletar(id);
-
-        return res.status(200).json(result);
-
-    } catch (error) {
-        console.error(error);
-        return res.status(500).json({
-            message: 'Ocorreu um erro no servidor',
-            errorMessage: error.message
-        });
-    }
-},
+            res.status(200).json(result);
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({
+                message: 'Ocorreu um erro no servidor',
+                errorMessage: error.message
+            });
+        }
+    },
 
     selecionar: async (req, res) => {
         try {
             const result = await categoriaRepository.selecionar();
             console.log(result);
             
-            res.status(200).json({result});
+            res.status(200).json(result);
         } catch (error) {
             console.error(error);
             res.status(500).json({
